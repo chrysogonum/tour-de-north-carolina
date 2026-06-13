@@ -33,6 +33,7 @@ const W = {
   grad: 0, gradTarget: 0,
   pedal: 0, surge: 0,
   jersey: "#eef2f7",      // rider jersey colour (turns yellow when leading)
+  worlds: false,          // stage 5: rainbow world-champion kit
   t: 0
 };
 
@@ -58,10 +59,13 @@ function buildPreview(){
     el.setAttribute("role", "button");
     el.tabIndex = 0;
     el.setAttribute("aria-label", `Stage ${i+1}, ${s.name}, ${s.questions.length} questions. Click to start.`);
+    if(s.id === 5) el.classList.add("worlds");
+    const worldTag = s.id === 5 ? `<div class="worldtag">🌈 Rainbow Stage · The Exam Itself</div>` : "";
     el.innerHTML =
       `<div class="n"><span>Stage ${i+1}</span><span class="qct">${s.questions.length} questions</span></div>
        <div class="t">${s.name}</div>
        <div class="s">${s.subject}</div>
+       ${worldTag}
        <canvas class="prof" width="320" height="60"></canvas>
        <div class="go">Roll out ▸</div>`;
     const launch = () => { resetTotals(); startStage(i); };
@@ -177,11 +181,12 @@ function drawWorld(dt){
 
   // ----- the rider -----
   const riderX = w*0.36, riderY = baseY - 6*s;
-  drawCyclist(riderX, riderY, h*0.00052*s*100/ DPR * DPR, W.pedal, tilt*1.4, W.jersey, true);
+  const heroJersey = W.worlds ? "#f4f6fb" : W.jersey;
+  drawCyclist(riderX, riderY, h*0.00052*s*100/ DPR * DPR, W.pedal, tilt*1.4, heroJersey, true, W.worlds);
 
   // a chasing rival (for flavour) just behind on flats/rolling
   if(W.climbF < 0.5){
-    drawCyclist(riderX - w*0.16, baseY - 2*s, h*0.00046*s*100/DPR*DPR, W.pedal+1.7, tilt*1.4, "#cf3b3b", false);
+    drawCyclist(riderX - w*0.16, baseY - 2*s, h*0.00046*s*100/DPR*DPR, W.pedal+1.7, tilt*1.4, "#cf3b3b", false, false);
   }
 }
 
@@ -248,7 +253,7 @@ function drawKmPole(x,y,sc){
 }
 
 /* the cyclist — stylised, pedalling, leans on climbs */
-function drawCyclist(cx, cy, scale, phase, tilt, jersey, hero){
+function drawCyclist(cx, cy, scale, phase, tilt, jersey, hero, worlds){
   const u = DPR * (hero?1.0:0.86);          // unit
   ctx.save();
   ctx.translate(cx, cy);
@@ -307,6 +312,20 @@ function drawCyclist(cx, cy, scale, phase, tilt, jersey, hero){
   // torso
   ctx.beginPath(); ctx.moveTo(hipX,hipY); ctx.lineTo(shX,shY);
   ctx.lineWidth=9*u; ctx.strokeStyle=jersey; ctx.lineCap="round"; ctx.stroke(); ctx.lineCap="butt";
+  // rainbow world-champion bands (stage 5)
+  if(worlds){
+    const bands=["#1c6cff","#e2231a","#111111","#ffd000","#00a651"];
+    const dx=shX-hipX, dy=shY-hipY, L=Math.hypot(dx,dy)||1, nx=-dy/L, ny=dx/L;
+    ctx.lineCap="round";
+    bands.forEach((col,bi)=>{
+      const tt=0.18+bi*0.16, px=hipX+dx*tt, py=hipY+dy*tt;
+      ctx.beginPath();
+      ctx.moveTo(px-nx*4.2*u, py-ny*4.2*u);
+      ctx.lineTo(px+nx*4.2*u, py+ny*4.2*u);
+      ctx.lineWidth=2.3*u; ctx.strokeStyle=col; ctx.stroke();
+    });
+    ctx.lineCap="butt";
+  }
   // arm
   ctx.beginPath(); ctx.moveTo(shX,shY); ctx.lineTo(barX+6*u,barY-1*u); ctx.lineWidth=3.6*u; ctx.strokeStyle="#10151d"; ctx.stroke();
   leg(p1, 1);  // near leg over torso
@@ -431,8 +450,13 @@ function startStage(i){
   $("stageLab").textContent = `Stage ${i+1} / ${STAGES.length}`;
   $("stageNm").textContent  = STAGES[i].name;
   $("progBar").style.width = "0%";
+  const worlds = STAGES[i].id === 5;
+  W.worlds = worlds;
+  W.jersey = "#eef2f7";
+  screens.ride.classList.toggle("worlds", worlds);
   show("ride"); resize();
   loadQuestion();
+  if(worlds) flashToast("🌈 RAINBOW STAGE · THE WORLD CHAMPIONSHIP", "#ffe04d");
 }
 function loadQuestion(){
   const st = STAGES[G.stage];
@@ -547,6 +571,14 @@ $("contBtn") && $("contBtn").addEventListener("click", ()=>{
   $("progBar").style.width = (G.q/STAGES[G.stage].questions.length*100)+"%";
   $("qcard").classList.remove("show");
   setTimeout(loadQuestion, 220);
+});
+
+// Abandon the current stage and return to the menu (no refresh needed)
+$("exitBtn") && $("exitBtn").addEventListener("click", ()=>{
+  timer.active = false;
+  $("qcard").classList.remove("show");
+  screens.ride.classList.remove("worlds");
+  show("start");
 });
 
 /* Build the citation chips. NC/CA questions get two chips (North Carolina /

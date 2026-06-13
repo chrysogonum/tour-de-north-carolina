@@ -88,6 +88,12 @@
   .jtag{display:flex; align-items:center; gap:6px; background:#0008; border:1px solid #ffffff22;
     border-radius:8px; padding:5px 9px; font-weight:700; font-size:14px;}
   .jtag .num{font-size:18px;}
+  .exitbtn{display:flex; align-items:center; gap:6px; flex:0 0 auto; background:#0008; border:1px solid #ffffff2b;
+    color:#dce6f7; height:34px; padding:0 12px; border-radius:9px; font-family:'Barlow Condensed'; font-weight:700;
+    letter-spacing:1px; text-transform:uppercase; font-size:15px; backdrop-filter:blur(3px);}
+  .exitbtn:hover{background:#ffffff1f; color:#fff; border-color:#ffffff55;}
+  .exitbtn:active{transform:translateY(1px);}
+  .exitbtn > span:first-child{font-size:16px; line-height:1;}
 
   /* metrics bottom-left */
   .metrics{position:absolute; left:14px; bottom:118px; display:flex; gap:8px; flex-wrap:wrap; max-width:60%;}
@@ -161,6 +167,21 @@
   .cite.ube{background:#23311c; border:1px solid #56743a;}
   .cite .st{font-weight:700; letter-spacing:1px; font-size:10px; text-transform:uppercase; display:block; margin-bottom:2px;}
   .cite.nc .st{color:#5fd0ff;} .cite.ca .st{color:#d79cff;} .cite.ube .st{color:#cfe66a;}
+
+  /* Stage 5 — rainbow world-champion treatment (the real-exam stage) */
+  .spv.worlds::before{content:""; position:absolute; left:-1px; right:-1px; top:-1px; height:5px;
+    border-radius:14px 14px 0 0;
+    background:linear-gradient(90deg,#1c6cff 0 20%,#e2231a 20% 40%,#111 40% 60%,#ffd000 60% 80%,#00a651 80% 100%);}
+  .spv.worlds:hover{border-color:#dfe6ee;}
+  .worldtag{display:inline-block; margin-top:8px; font-family:'Barlow Condensed'; font-weight:700;
+    font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:#0b1020; padding:3px 9px; border-radius:999px;
+    background:linear-gradient(90deg,#3a8dff,#e2231a,#ffd000,#00a651);}
+  .worldsribbon{display:none; position:absolute; top:0; left:0; right:0; height:4px; z-index:6; pointer-events:none;
+    background:linear-gradient(90deg,#1c6cff 0 20%,#e2231a 20% 40%,#111 40% 60%,#ffd000 60% 80%,#00a651 80% 100%);}
+  #screen-ride.worlds .worldsribbon{display:block;}
+  #screen-ride.worlds .stagepill .nm{
+    background:linear-gradient(90deg,#6aa8ff,#ff7a72,#ffffff,#ffe566,#67e29a);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
   .contbtn{display:block; width:100%; background:linear-gradient(180deg,#1f8fff,#0b6fd4); color:#fff;
     font-family:'Barlow Condensed'; font-weight:700; font-size:22px; letter-spacing:1.5px; text-transform:uppercase;
     padding:12px; border-radius:11px;}
@@ -214,6 +235,7 @@
     .qcard{bottom:104px; background:rgba(10,18,36,0.58); -webkit-backdrop-filter:blur(11px); backdrop-filter:blur(11px);}
     .opt{background:rgba(22,34,59,0.52);}
     .jtag .num{font-size:15px;}
+    .exitbtn{padding:0 9px;} .exitbtn .exitlab{display:none;}
     .step{width:92px;}
   }
   /* wide screens: dock the question as a right-side panel so the ride stays visible */
@@ -285,6 +307,7 @@
   <section id="screen-ride" class="screen">
     <canvas id="world"></canvas>
     <div class="hud">
+      <div class="worldsribbon" id="worldsRibbon"></div>
       <div class="topbar">
         <div class="stagepill">
           <span class="lab" id="stageLab">Stage 1 / 4</span>
@@ -296,6 +319,7 @@
           <span class="jtag" title="Green jersey — sprint points"><span class="dot" style="background:var(--green)"></span><span class="num" id="jGreen">0</span></span>
           <span class="jtag" title="Polka-dot jersey — King of the Mountains"><span class="dot" style="background:#fff;background-image:radial-gradient(circle,#e2231a 2px,transparent 2.2px);background-size:6px 6px"></span><span class="num" id="jPolka">0</span></span>
         </div>
+        <button class="exitbtn" id="exitBtn" title="Abandon stage — back to the menu" aria-label="Exit to stage menu"><span>✕</span><span class="exitlab">Exit</span></button>
       </div>
 
       <div class="toast" id="toast"></div>
