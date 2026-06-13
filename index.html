@@ -107,6 +107,7 @@
     overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .qcard.show{display:block; animation:pop .25s ease;}
   @keyframes pop{from{transform:translateX(-50%) translateY(14px); opacity:0;} to{opacity:1;}}
+  @keyframes fadein{from{opacity:0;} to{opacity:1;}}
   .qhead{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
   .tbadge{font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
     font-size:14px; padding:4px 10px; border-radius:7px;}
@@ -200,6 +201,14 @@
     .qcard{bottom:104px;}
     .jtag .num{font-size:15px;}
     .step{width:92px;}
+  }
+  /* wide screens: dock the question as a right-side panel so the ride stays visible */
+  @media (min-width:900px){
+    .qcard{left:auto; right:22px; bottom:auto; top:50%; transform:translateY(-50%);
+      width:min(440px,40vw); max-height:calc(100vh - 230px);}
+    .qcard.show{animation:fadein .22s ease;}
+    .gradpill{right:auto; left:22px; bottom:auto; top:50%; transform:translateY(-50%);}
+    .metrics{bottom:112px;}
   }
   /* short / landscape-phone screens: keep the question card on-screen */
   @media (max-height:520px){

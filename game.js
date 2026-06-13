@@ -146,7 +146,7 @@ function drawWorld(dt){
   // ----- road (perspective, tilts up on climbs) -----
   const tilt = (W.grad/100) * 0.9;          // visual slope
   const roadW0 = w*0.62, roadW1 = w*0.10;
-  const baseY = h*0.92;
+  const baseY = h*0.86;
   const vanY  = horizon + 6*s;
   const vanX  = w*0.5 + tilt*w*0.5;          // vanishing point shifts up-right with gradient
   ctx.beginPath();
