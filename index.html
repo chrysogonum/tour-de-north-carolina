@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Le Tour de North Carolina — Bar Exam Edition</title>
+<meta name="description" content="A Zwift-style indoor-ride quiz on the differences between North Carolina and California law. Built for James.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFDD00; --green:#00B84D; --polka:#E2231A; --blue:#0B7CC9;
+    --ink:#0d1320; --ink2:#162033; --panel:#1b2942; --panel2:#22324f;
+    --line:#33486e; --text:#eaf1ff; --muted:#9fb3d4; --good:#22d37a; --bad:#ff5d6c;
+    --hud:#0a101c;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; height:100%; background:#05080f; color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; overflow:hidden;}
+  h1,h2,h3,.cond{font-family:'Barlow Condensed','Arial Narrow',sans-serif; letter-spacing:.5px;}
+  .num{font-family:'Barlow Condensed',sans-serif; font-variant-numeric:tabular-nums; letter-spacing:.5px;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  #app{position:fixed; inset:0; overflow:hidden;}
+  .screen{position:absolute; inset:0; display:none; flex-direction:column;}
+  .screen.active{display:flex;}
+
+  /* ---------- START / SIGN-ON ---------- */
+  #screen-start{overflow-y:auto; align-items:center;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #152c52 0%, transparent 60%),
+      linear-gradient(180deg,#0a1426 0%, #070b15 100%);}
+  .signon{max-width:880px; width:100%; padding:38px 22px 60px; text-align:center;}
+  .kicker{color:var(--muted); font-weight:700; letter-spacing:3px; text-transform:uppercase; font-size:13px;}
+  .title{font-size:clamp(38px,8vw,86px); font-weight:800; line-height:.92; margin:8px 0 6px;
+    background:linear-gradient(90deg,#ffe45e,#ffd000 40%,#fff 50%,#7fd0ff 75%,#39b0ff);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    text-transform:uppercase;}
+  .subtitle{font-size:clamp(16px,2.4vw,24px); color:#cfe0ff; font-weight:600; font-family:'Barlow Condensed';
+    letter-spacing:1px; text-transform:uppercase;}
+  .jerseybar{display:flex; gap:10px; justify-content:center; margin:22px 0 4px; flex-wrap:wrap;}
+  .chip{display:flex; align-items:center; gap:8px; background:#13203a; border:1px solid var(--line);
+    padding:8px 14px; border-radius:999px; font-weight:600; font-size:14px;}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;}
+  .blurbcard{background:#101c33cc; border:1px solid var(--line); border-radius:16px; padding:22px 24px;
+    margin:24px auto 0; max-width:720px; text-align:left; line-height:1.55; color:#dbe6fb;}
+  .blurbcard b{color:#fff;}
+  .stages-preview{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin:22px 0;}
+  .spv{background:#101c33; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:left;}
+  .spv .n{font-family:'Barlow Condensed'; font-size:13px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase;}
+  .spv .t{font-family:'Barlow Condensed'; font-size:24px; font-weight:700; color:#fff; line-height:1; margin:2px 0 4px;}
+  .spv .s{font-size:12.5px; color:#bcd0f2;}
+  .spv .prof{height:30px; margin-top:8px;}
+  .cta{margin-top:14px; display:inline-flex; align-items:center; gap:12px;
+    background:linear-gradient(180deg,#ff7a00,#e85d00); color:#fff; font-weight:800;
+    font-family:'Barlow Condensed'; font-size:30px; letter-spacing:2px; text-transform:uppercase;
+    padding:16px 44px; border-radius:14px; box-shadow:0 10px 30px #ff6a0033, inset 0 1px 0 #ffffff55;}
+  .cta:active{transform:translateY(2px);}
+  .legal-note{margin-top:26px; font-size:12px; color:#7e90b3; max-width:620px; line-height:1.5;}
+  .legal-note a{color:#8fb6e6;}
+
+  /* ---------- RIDE ---------- */
+  #screen-ride{background:#000;}
+  #world{position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .hud{position:absolute; inset:0; pointer-events:none;}
+  .hud > *{pointer-events:auto;}
+
+  /* top bar */
+  .topbar{position:absolute; top:0; left:0; right:0; display:flex; align-items:center; gap:14px;
+    padding:10px 14px; background:linear-gradient(180deg,#000a 0%, transparent 100%);}
+  .stagepill{display:flex; flex-direction:column; line-height:1;}
+  .stagepill .lab{font-size:11px; color:var(--yellow); font-weight:700; letter-spacing:2px; text-transform:uppercase;}
+  .stagepill .nm{font-family:'Barlow Condensed'; font-size:24px; font-weight:700; color:#fff;}
+  .progwrap{flex:1; height:9px; background:#ffffff22; border-radius:99px; overflow:hidden; max-width:520px;}
+  .progbar{height:100%; width:0; background:linear-gradient(90deg,#ffd000,#ff7a00); transition:width .5s;}
+  .jerseys{display:flex; gap:8px;}
+  .jtag{display:flex; align-items:center; gap:6px; background:#0008; border:1px solid #ffffff22;
+    border-radius:8px; padding:5px 9px; font-weight:700; font-size:14px;}
+  .jtag .num{font-size:18px;}
+
+  /* metrics bottom-left */
+  .metrics{position:absolute; left:14px; bottom:118px; display:flex; gap:8px; flex-wrap:wrap; max-width:60%;}
+  .metric{background:#000a; border:1px solid #ffffff1f; border-radius:10px; padding:6px 12px; min-width:78px;
+    backdrop-filter:blur(3px);}
+  .metric .v{font-family:'Barlow Condensed'; font-size:30px; font-weight:700; line-height:.9;}
+  .metric .u{font-size:10px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase;}
+  .metric.power .v{color:#ffd34d;} .metric.cad .v{color:#7fe0ff;}
+  .metric.spd .v{color:#fff;} .metric.hr .v{color:#ff7a8a;}
+
+  /* gradient pill */
+  .gradpill{position:absolute; right:16px; bottom:128px; background:#111c; border:2px solid #ffffff2b;
+    border-radius:12px; padding:8px 14px; text-align:center; opacity:0; transition:opacity .4s;}
+  .gradpill.show{opacity:1;}
+  .gradpill .g{font-family:'Barlow Condensed'; font-size:40px; font-weight:800; line-height:.85;}
+  .gradpill .l{font-size:10px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;}
+
+  /* elevation profile strip */
+  .profstrip{position:absolute; left:0; right:0; bottom:0; height:96px;
+    background:linear-gradient(0deg,#000d 0%, #0008 70%, transparent 100%); padding:8px 12px 10px;}
+  #profcanvas{width:100%; height:100%; display:block;}
+
+  /* question card */
+  .qcard{position:absolute; left:50%; transform:translateX(-50%); bottom:112px; width:min(760px,94vw);
+    background:#0d1830f2; border:1px solid #33507e; border-radius:16px;
+    box-shadow:0 20px 60px #000a; padding:16px 18px 18px; display:none;}
+  .qcard.show{display:block; animation:pop .25s ease;}
+  @keyframes pop{from{transform:translateX(-50%) translateY(14px); opacity:0;} to{opacity:1;}}
+  .qhead{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
+  .tbadge{font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    font-size:14px; padding:4px 10px; border-radius:7px;}
+  .tbadge.flat{background:#2c405f; color:#cfe0ff;}
+  .tbadge.rolling{background:#3a5a3f; color:#d6f5d9;}
+  .tbadge.sprint{background:var(--green); color:#04220f;}
+  .tbadge.climb{background:#fff; color:#b30; background-image:radial-gradient(circle, #e2231a 2px, transparent 2.4px); background-size:9px 9px; color:#111; border:1px solid #e2231a;}
+  .tbadge.hc{background:#111; color:#fff; border:2px solid #e2231a; background-image:radial-gradient(circle,#e2231a 2px,transparent 2.4px); background-size:8px 8px;}
+  .qtimerwrap{margin-left:auto; display:flex; align-items:center; gap:8px;}
+  .qtimer{width:120px; height:7px; background:#ffffff1c; border-radius:99px; overflow:hidden;}
+  .qtimer > i{display:block; height:100%; width:100%; background:linear-gradient(90deg,#00e676,#ffd000);}
+  .qtimer.lo > i{background:linear-gradient(90deg,#ff7a00,#ff3b3b);}
+  .qtext{font-size:clamp(15px,2vw,18px); line-height:1.4; color:#fff; font-weight:500; margin-bottom:12px;}
+  .opts{display:grid; gap:8px;}
+  .opt{display:flex; gap:10px; align-items:flex-start; text-align:left; background:#16223b; color:#e8f0ff;
+    border:1px solid #33507e; border-radius:11px; padding:11px 13px; font-size:14.5px; line-height:1.35;
+    transition:transform .06s, background .15s;}
+  .opt:hover{background:#1d2c49;}
+  .opt:active{transform:scale(.992);}
+  .opt .key{font-family:'Barlow Condensed'; font-weight:700; background:#33507e; color:#fff;
+    border-radius:6px; min-width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:15px;}
+  .opt.correct{background:#103a22; border-color:var(--good);}
+  .opt.correct .key{background:var(--good); color:#04220f;}
+  .opt.wrong{background:#3a1620; border-color:var(--bad);}
+  .opt.wrong .key{background:var(--bad); color:#2a0008;}
+  .opt.dim{opacity:.55;}
+  .opt[disabled]{cursor:default;}
+
+  .explain{margin-top:12px; border-top:1px solid #2a3f63; padding-top:11px; display:none;}
+  .explain.show{display:block; animation:pop .25s ease;}
+  .verdict{font-family:'Barlow Condensed'; font-size:24px; font-weight:800; letter-spacing:1px; text-transform:uppercase;}
+  .verdict.ok{color:var(--good);} .verdict.no{color:var(--bad);}
+  .reward{font-size:13px; color:var(--muted); font-weight:600;}
+  .extext{font-size:14px; color:#d7e3fa; line-height:1.45; margin:6px 0 10px;}
+  .cites{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .cite{font-size:12.5px; border-radius:8px; padding:6px 10px; line-height:1.3; flex:1; min-width:200px;}
+  .cite.nc{background:#0e2336; border:1px solid #1f4f6e;}
+  .cite.ca{background:#241a2e; border:1px solid #5a3a6e;}
+  .cite .st{font-weight:700; letter-spacing:1px; font-size:10px; text-transform:uppercase; display:block; margin-bottom:2px;}
+  .cite.nc .st{color:#5fd0ff;} .cite.ca .st{color:#d79cff;}
+  .contbtn{display:block; width:100%; background:linear-gradient(180deg,#1f8fff,#0b6fd4); color:#fff;
+    font-family:'Barlow Condensed'; font-weight:700; font-size:22px; letter-spacing:1.5px; text-transform:uppercase;
+    padding:12px; border-radius:11px;}
+  .contbtn:active{transform:translateY(1px);}
+
+  .toast{position:absolute; top:64px; left:50%; transform:translateX(-50%) translateY(-12px);
+    font-family:'Barlow Condensed'; font-size:34px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    opacity:0; transition:all .4s; text-shadow:0 3px 12px #000c; pointer-events:none;}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* ---------- STAGE RESULT ---------- */
+  #screen-result, #screen-final{align-items:center; overflow-y:auto;
+    background:radial-gradient(1000px 500px at 50% -10%, #16305a 0%, transparent 60%), linear-gradient(180deg,#0a1426,#070b15);}
+  .resbox{max-width:760px; width:100%; padding:34px 22px 60px; text-align:center;}
+  .resbox h2{font-size:clamp(30px,6vw,56px); margin:6px 0; text-transform:uppercase; font-weight:800; color:#fff;}
+  .bigstat{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:18px 0;}
+  .bs{background:#101c33; border:1px solid var(--line); border-radius:14px; padding:16px 22px; min-width:120px;}
+  .bs .v{font-family:'Barlow Condensed'; font-size:46px; font-weight:800; line-height:.9;}
+  .bs .l{font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-top:4px;}
+  .resbtn{margin-top:18px; background:linear-gradient(180deg,#ff7a00,#e85d00); color:#fff; font-family:'Barlow Condensed';
+    font-size:26px; font-weight:800; letter-spacing:2px; text-transform:uppercase; padding:14px 40px; border-radius:13px;}
+  .resbtn.alt{background:linear-gradient(180deg,#1f8fff,#0b6fd4);}
+  .resbtn:active{transform:translateY(2px);}
+
+  /* podium + jerseys */
+  .podium{display:flex; align-items:flex-end; justify-content:center; gap:6px; margin:18px 0 6px; height:170px;}
+  .step{width:120px; background:linear-gradient(180deg,#22324f,#16223b); border:1px solid var(--line);
+    border-radius:10px 10px 0 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:8px; position:relative;}
+  .step .pos{font-family:'Barlow Condensed'; font-size:40px; font-weight:800; color:#fff;}
+  .step .who{font-size:12px; color:var(--muted);}
+  .step .rider{position:absolute; top:-46px; font-size:42px;}
+  .jgrid{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0;}
+  .jcard{width:150px; background:#101c33; border:1px solid var(--line); border-radius:14px; padding:14px 12px;}
+  .jcard.won{box-shadow:0 0 0 2px #ffd00055, 0 8px 24px #0006;}
+  .jcard .ji{font-size:34px;} .jcard.lost{opacity:.45;}
+  .jcard .jt{font-family:'Barlow Condensed'; font-size:19px; font-weight:700; color:#fff; margin-top:4px; text-transform:uppercase;}
+  .jcard .jd{font-size:12px; color:#bcd0f2; margin-top:3px; line-height:1.35;}
+  .share{background:#0c1424; border:1px solid var(--line); border-radius:14px; padding:16px; margin:18px 0; text-align:left;}
+  .share pre{font-family:'Barlow Condensed','Courier New',monospace; font-size:15px; color:#dbe6fb; white-space:pre-wrap;
+    margin:0; line-height:1.5; letter-spacing:1px;}
+  .stagetable{width:100%; border-collapse:collapse; margin:8px 0; font-size:13.5px;}
+  .stagetable td,.stagetable th{padding:8px 6px; border-bottom:1px solid #22324f; text-align:left;}
+  .stagetable th{color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; font-size:11px;}
+  .row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .accuracy-note{font-size:12px;color:#7e90b3;margin-top:18px;line-height:1.5;}
+
+  @media (max-width:560px){
+    .metrics{bottom:108px; max-width:74%;}
+    .metric{min-width:64px; padding:5px 9px;}
+    .metric .v{font-size:24px;}
+    .qcard{bottom:104px;}
+    .jtag .num{font-size:15px;}
+    .step{width:92px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= SIGN ON ================= -->
+  <section id="screen-start" class="screen active">
+    <div class="signon">
+      <div class="kicker">Indoor Trainer Edition · NC vs. CA Comparative Law</div>
+      <h1 class="title">Le Tour de<br>North Carolina</h1>
+      <div class="subtitle">The Bar Exam Grand Tour · for James</div>
+
+      <div class="jerseybar">
+        <span class="chip"><span class="dot" style="background:var(--yellow)"></span> Yellow · GC</span>
+        <span class="chip"><span class="dot" style="background:var(--green)"></span> Green · Sprints</span>
+        <span class="chip"><span class="dot" style="background:#fff;background-image:radial-gradient(circle,#e2231a 2px,transparent 2.2px);background-size:6px 6px"></span> Polka-dot · KOM</span>
+      </div>
+
+      <div class="blurbcard">
+        You already won an <b>Ironman in this state</b> (2016, North Carolina — we remember). You financed the
+        mortgages, the student loans, the re-securitizations, the charter-school receivables. Now there's one
+        climb left: the <b>North Carolina bar exam</b>.<br><br>
+        This is a four-stage Grand Tour over the places <b>North Carolina law and California law actually diverge</b> —
+        every question cited to a real statute or rule. The road is a workout: <b>soft-pedal the flats</b>, empty
+        the tank on the <b>sprints</b> for green points, and survive the <b>mountain climbs</b> where the marquee
+        differences live and the gradient bites. Three jerseys. Forty-two questions. One Tar Heel license.
+      </div>
+
+      <div class="stages-preview" id="stagesPreview"></div>
+
+      <button class="cta" id="signonBtn">Sign On ▸</button>
+
+      <div class="legal-note">
+        A study aid and a gift — not legal advice, and no substitute for your bar prep. Every item was checked
+        against primary sources (ncleg.gov, California leginfo, the NC State Bar, and the State Bar of California),
+        and each answer shows its citation so you can verify and learn. Law changes; confirm before you rely.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RIDE ================= -->
+  <section id="screen-ride" class="screen">
+    <canvas id="world"></canvas>
+    <div class="hud">
+      <div class="topbar">
+        <div class="stagepill">
+          <span class="lab" id="stageLab">Stage 1 / 4</span>
+          <span class="nm" id="stageNm">Mount Mitchell</span>
+        </div>
+        <div class="progwrap"><div class="progbar" id="progBar"></div></div>
+        <div class="jerseys">
+          <span class="jtag" title="Yellow jersey — overall (GC) points"><span class="dot" style="background:var(--yellow)"></span><span class="num" id="jYellow">0</span></span>
+          <span class="jtag" title="Green jersey — sprint points"><span class="dot" style="background:var(--green)"></span><span class="num" id="jGreen">0</span></span>
+          <span class="jtag" title="Polka-dot jersey — King of the Mountains"><span class="dot" style="background:#fff;background-image:radial-gradient(circle,#e2231a 2px,transparent 2.2px);background-size:6px 6px"></span><span class="num" id="jPolka">0</span></span>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+
+      <div class="metrics">
+        <div class="metric power"><div class="v num" id="mPower">0</div><div class="u">Watts</div></div>
+        <div class="metric cad"><div class="v num" id="mCad">0</div><div class="u">RPM</div></div>
+        <div class="metric spd"><div class="v num" id="mSpd">0</div><div class="u">km/h</div></div>
+        <div class="metric hr"><div class="v num" id="mHr">0</div><div class="u">bpm</div></div>
+      </div>
+
+      <div class="gradpill" id="gradPill"><div class="g num" id="gradVal">0%</div><div class="l">gradient</div></div>
+
+      <div class="qcard" id="qcard">
+        <div class="qhead">
+          <span class="tbadge" id="tbadge">FLAT</span>
+          <div class="qtimerwrap">
+            <span class="u" style="font-size:10px;color:var(--muted);letter-spacing:1.5px">TIME</span>
+            <div class="qtimer" id="qtimer"><i id="qtimerbar"></i></div>
+          </div>
+        </div>
+        <div class="qtext" id="qtext"></div>
+        <div class="opts" id="opts"></div>
+        <div class="explain" id="explain">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <span class="verdict" id="verdict">Correct</span>
+            <span class="reward" id="reward"></span>
+          </div>
+          <div class="extext" id="extext"></div>
+          <div class="cites">
+            <div class="cite nc"><span class="st">North Carolina</span><span id="citeNc"></span></div>
+            <div class="cite ca"><span class="st">California</span><span id="citeCa"></span></div>
+          </div>
+          <button class="contbtn" id="contBtn">Continue ▸</button>
+        </div>
+      </div>
+
+      <div class="profstrip"><canvas id="profcanvas"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ================= STAGE RESULT ================= -->
+  <section id="screen-result" class="screen">
+    <div class="resbox">
+      <div class="kicker" id="resKicker">Stage Complete</div>
+      <h2 id="resTitle">Mount Mitchell</h2>
+      <div class="bigstat" id="resStats"></div>
+      <div id="resBlurb" style="color:#cfe0ff;line-height:1.5;max-width:560px;margin:0 auto"></div>
+      <button class="resbtn" id="nextStageBtn">Next Stage ▸</button>
+    </div>
+  </section>
+
+  <!-- ================= FINAL ================= -->
+  <section id="screen-final" class="screen">
+    <div class="resbox">
+      <div class="kicker">Paris · The Champs-Élysées · (well, Raleigh)</div>
+      <h2>Final Classification</h2>
+      <div class="podium" id="podium"></div>
+      <div class="bigstat" id="finalStats"></div>
+      <div class="jgrid" id="jgrid"></div>
+
+      <h3 style="font-family:'Barlow Condensed';font-size:24px;color:#fff;margin:18px 0 4px;text-transform:uppercase">Stage Results</h3>
+      <table class="stagetable" id="stageTable"></table>
+
+      <div class="share">
+        <div style="font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Share your ride</div>
+        <pre id="shareText"></pre>
+      </div>
+      <div class="row">
+        <button class="resbtn alt" id="copyBtn">Copy Result</button>
+        <button class="resbtn" id="replayBtn">Ride Again ▸</button>
+      </div>
+      <div class="accuracy-note">
+        Built as a gift, not as legal advice. Sources: North Carolina General Statutes (ncleg.gov), California codes
+        (leginfo.legislature.ca.gov), the North Carolina State Bar, and the State Bar of California. Go get that license, James.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="questions.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
