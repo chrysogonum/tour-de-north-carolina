@@ -900,6 +900,146 @@ const STAGES = [
                 {label:"Authority", kind:"ube", text:"Miranda v. Arizona, 384 U.S. 436 (1966)"}]
       },
       {
+        terrain: "flat", diff: 1,
+        q: "A citizen of State A sues a citizen of State B in federal court under diversity jurisdiction on a state-law negligence claim. On which of the following must the federal court apply STATE law?",
+        options: [
+          "The substantive standard of care and the elements of the negligence claim",
+          "The form and timing of pleadings, governed by the Federal Rules of Civil Procedure",
+          "The manner of selecting and instructing the jury in federal court",
+          "The admissibility of evidence under the Federal Rules of Evidence"
+        ],
+        correct: "The substantive standard of care and the elements of the negligence claim",
+        explain: "Under Erie, a federal court sitting in diversity applies state SUBSTANTIVE law (here, the negligence standard and elements) but federal PROCEDURAL law — the FRCP, federal trial procedure, and the Federal Rules of Evidence.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Erie — state substantive law applies in diversity"},
+                {label:"Authority", kind:"ube", text:"Erie R.R. Co. v. Tompkins, 304 U.S. 64 (1938)"}]
+      },
+      {
+        terrain: "sprint", diff: 2,
+        q: "SPRINT! During an armed bank robbery, the defendant stumbles and his gun fires by accident, killing a teller. He did not intend to fire or to kill anyone. At common law he is most likely guilty of:",
+        options: [
+          "Murder — under the felony-murder rule, the killing occurred during an inherently dangerous felony",
+          "Involuntary manslaughter — the killing was accidental and unintended",
+          "No homicide offense — he lacked the intent to kill",
+          "Voluntary manslaughter — the killing happened in the heat of the robbery"
+        ],
+        correct: "Murder — under the felony-murder rule, the killing occurred during an inherently dangerous felony",
+        explain: "Robbery is an inherently dangerous felony; under the felony-murder rule, a killing during its commission is murder even if accidental, because malice is supplied by the intent to commit the felony.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Felony murder — a killing during an inherently dangerous felony"},
+                {label:"Authority", kind:"ube", text:"Common-law murder; malice aforethought"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "A neighbor openly builds a shed on the adjoining owner's lot and uses it, without permission, continuously for the statutory period. Which is NOT a required element to acquire title by adverse possession?",
+        options: [
+          "Possession undertaken in the good-faith belief that the neighbor owned the land",
+          "Possession that was open and notorious",
+          "Possession that was continuous throughout the statutory period",
+          "Possession that was hostile — that is, without the owner's permission"
+        ],
+        correct: "Possession undertaken in the good-faith belief that the neighbor owned the land",
+        explain: "Under the majority (objective) view, good faith is NOT required — 'hostile' means only that possession was without permission. The elements are actual, open and notorious, exclusive, hostile, and continuous for the statutory period.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Adverse possession — no good-faith requirement (majority view)"},
+                {label:"Authority", kind:"ube", text:"Common-law elements: actual / open / exclusive / hostile / continuous"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "An owner deeds her land to A, who does not record. Two months later she deeds the same land to B for value; B has no notice of A's deed. The statute reads: 'No conveyance is valid against a subsequent purchaser for value and without notice.' After B buys but before B records, A records; then B records. Who prevails?",
+        options: [
+          "B — in a notice jurisdiction a purchaser for value who took without notice prevails, and need not record first",
+          "A — because A recorded his deed before B recorded hers",
+          "A — the first grantee to receive a deed always has superior title",
+          "B — but only because B ultimately recorded her deed"
+        ],
+        correct: "B — in a notice jurisdiction a purchaser for value who took without notice prevails, and need not record first",
+        explain: "Under a pure NOTICE statute, the later bona fide purchaser (value + no notice at the time of purchase) prevails; B need not record, and A's later recording cannot defeat B's already-vested priority.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Recording — a notice statute protects the later BFP"},
+                {label:"Authority", kind:"ube", text:"Notice recording act; bona fide purchaser doctrine"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "An environmental group sues a federal agency, claiming its funding of an overseas project harms species the members hope to see 'someday,' though they have no concrete plans to visit. The suit is most likely dismissed because:",
+        options: [
+          "The members lack an injury in fact that is actual or imminent, rather than conjectural or hypothetical",
+          "The members cannot show the federal government waived sovereign immunity",
+          "The injury is concrete but not redressable by any court",
+          "The members lack prudential standing because the claim is a generalized grievance"
+        ],
+        correct: "The members lack an injury in fact that is actual or imminent, rather than conjectural or hypothetical",
+        explain: "Article III standing requires an injury in fact (concrete, particularized, actual or imminent), causation, and redressability. A 'someday' intention with no concrete plans is not an actual or imminent injury.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Standing — injury in fact, causation, redressability"},
+                {label:"Authority", kind:"ube", text:"Lujan v. Defenders of Wildlife, 504 U.S. 555 (1992)"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "A city ordinance bans 'any sign displaying a political message' on residential lawns, but allows all other lawn signs. Under the First Amendment, what standard applies?",
+        options: [
+          "Strict scrutiny — the ordinance is content-based, so it is valid only if narrowly tailored to a compelling government interest",
+          "Intermediate scrutiny — it is a time, place, and manner rule, needing only a significant interest and ample alternative channels",
+          "Rational basis — it need only be rationally related to a legitimate government interest",
+          "Strict scrutiny — but only if it is the least restrictive means of serving any legitimate interest"
+        ],
+        correct: "Strict scrutiny — the ordinance is content-based, so it is valid only if narrowly tailored to a compelling government interest",
+        explain: "Singling out political-message signs is content-based on its face, triggering strict scrutiny (narrowly tailored to a compelling interest). Intermediate scrutiny applies only to content-neutral time/place/manner rules.",
+        chips: [{label:"Tested rule", kind:"ube", text:"First Amendment — content-based restrictions get strict scrutiny"},
+                {label:"Authority", kind:"ube", text:"Reed v. Town of Gilbert; Ward v. Rock Against Racism"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "A defendant is charged with a burglary committed by picking an unusual electronic lock. The prosecution offers his prior conviction for a burglary using the identical distinctive method, to show the same person committed both. Admissible under FRE 404(b)?",
+        options: [
+          "Yes — it is offered to prove identity through a distinctive method (modus operandi), a permitted non-propensity purpose",
+          "No — evidence of a prior crime is never admissible against a criminal defendant",
+          "No — it shows only that the defendant is the kind of person disposed to commit burglary",
+          "Yes — prior convictions are always admissible to show a defendant's criminal character"
+        ],
+        correct: "Yes — it is offered to prove identity through a distinctive method (modus operandi), a permitted non-propensity purpose",
+        explain: "FRE 404(b) bars other-acts evidence offered to show propensity, but allows it for purposes such as motive, intent, knowledge, or identity. A distinctive 'signature' method is a classic identity use.",
+        chips: [{label:"Tested rule", kind:"ube", text:"FRE 404(b) — other acts allowed for non-propensity purposes"},
+                {label:"Authority", kind:"ube", text:"FRE 404(b)"}]
+      },
+      {
+        terrain: "sprint", diff: 2,
+        q: "SPRINT! A plaintiff wants to testify that she personally saw the defendant punch the victim. The defendant argues a security guard's written incident report is the 'best evidence' and must be produced instead. The court should:",
+        options: [
+          "Overrule the objection — the best evidence rule applies only when proving the CONTENT of a writing, recording, or photograph",
+          "Sustain it — the written report is the most reliable evidence of the event",
+          "Sustain it — the original report, not testimony, is required to prove what happened",
+          "Overrule it — but only if the plaintiff first shows the report was lost or destroyed"
+        ],
+        correct: "Overrule the objection — the best evidence rule applies only when proving the CONTENT of a writing, recording, or photograph",
+        explain: "The best evidence rule governs proof of a document's contents, not proof of an underlying event that happens to have been recorded. A percipient witness may testify directly to what she saw.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Best evidence rule — applies only to a document's content"},
+                {label:"Authority", kind:"ube", text:"FRE 1002 (and 1003 on duplicates)"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "Which oral agreement is enforceable WITHOUT a signed writing under the Statute of Frauds?",
+        options: [
+          "An agreement to sell a used bicycle for $300",
+          "An oral promise to pay a deceased debtor's hospital bill out of the promisor's own funds",
+          "An oral agreement to sell a vacant lot of land for $300",
+          "An oral two-year employment contract"
+        ],
+        correct: "An agreement to sell a used bicycle for $300",
+        explain: "A sale of goods under $500 falls outside UCC § 2-201. The others are within the Statute: a promise to pay another's debt from one's own funds (suretyship), any sale of land (regardless of price), and a contract that cannot be performed within one year.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Statute of Frauds — UCC goods threshold is $500"},
+                {label:"Authority", kind:"ube", text:"UCC § 2-201; common-law SoF categories"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "A homeowner holds a one-time garage sale and sells a used toaster that (unknown to her) has defective wiring; the buyer is shocked and injured. On a strict products liability theory, the homeowner will most likely:",
+        options: [
+          "Prevail — she was not engaged in the business of selling toasters",
+          "Be liable — the toaster was sold in a defective condition unreasonably dangerous to the user",
+          "Be liable — privity of contract existed between her and the buyer",
+          "Prevail — she exercised all possible care and did not know of the defect"
+        ],
+        correct: "Prevail — she was not engaged in the business of selling toasters",
+        explain: "Strict products liability reaches only a seller 'engaged in the business of selling' such products; a casual or occasional seller is outside the rule. (Exercising care is not the reason — care is no defense for a commercial seller.)",
+        chips: [{label:"Tested rule", kind:"ube", text:"Strict products liability — only a commercial seller"},
+                {label:"Authority", kind:"ube", text:"Restatement (Second) of Torts § 402A"}]
+      },
+      {
         terrain: "hc", diff: 3,
         q: "SUMMIT FINISH. A state law classifies people on the basis of GENDER. Under equal protection, what must the state show to sustain the law?",
         options: [

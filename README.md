@@ -7,7 +7,11 @@ for the North Carolina bar.
 Each of the four stages is a **workout**: soft-pedal the flats (warm-up recall), empty the
 tank on the **sprints** (timed, green-jersey points), and survive the **mountain climbs**
 where the marquee NC-vs-CA differences live and the road literally tilts up as the questions
-get harder. Three jerseys, 50 questions, every answer cited to a real statute or rule.
+get harder. Three jerseys, 72 questions, every answer cited to a real statute, rule, or case.
+
+Four stages cover where North Carolina and California law actually diverge; a fifth "rainbow"
+stage — **The Uniform Bar** — leaves the state comparison behind for the general/majority/uniform
+principles the UBE actually tests (MBE/MEE).
 
 ## What's in here
 
@@ -15,7 +19,7 @@ get harder. Three jerseys, 50 questions, every answer cited to a real statute or
 |------|---------|
 | `index.html` | The page (structure + styling). Open this to play. |
 | `game.js` | The ride engine — animated cyclist, parallax terrain, gradient, scoring, jerseys. |
-| `questions.js` | The 50-question bank. Every item cited to NC and CA primary sources. |
+| `questions.js` | The 72-question bank. NC-vs-CA items cited to primary state sources; UBE items cited to the FRE/FRCP/UCC, controlling cases, or the Restatement. |
 
 No build step, no dependencies, no server needed — it's plain HTML/CSS/JS.
 (It pulls one web font from Google Fonts; it still works offline, just with a fallback font.)
