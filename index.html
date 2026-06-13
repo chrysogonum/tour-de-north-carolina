@@ -102,7 +102,9 @@
   /* question card */
   .qcard{position:absolute; left:50%; transform:translateX(-50%); bottom:112px; width:min(760px,94vw);
     background:#0d1830f2; border:1px solid #33507e; border-radius:16px;
-    box-shadow:0 20px 60px #000a; padding:16px 18px 18px; display:none;}
+    box-shadow:0 20px 60px #000a; padding:16px 18px 18px; display:none;
+    max-height:calc(100vh - 124px); max-height:calc(100dvh - 124px);
+    overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .qcard.show{display:block; animation:pop .25s ease;}
   @keyframes pop{from{transform:translateX(-50%) translateY(14px); opacity:0;} to{opacity:1;}}
   .qhead{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
@@ -198,6 +200,22 @@
     .qcard{bottom:104px;}
     .jtag .num{font-size:15px;}
     .step{width:92px;}
+  }
+  /* short / landscape-phone screens: keep the question card on-screen */
+  @media (max-height:520px){
+    .profstrip{height:60px; padding:5px 10px 6px;}
+    .qcard{bottom:72px; max-height:calc(100vh - 80px); max-height:calc(100dvh - 80px); padding:11px 14px 12px;}
+    .qhead{margin-bottom:5px;}
+    .qtext{font-size:15px; margin-bottom:8px;}
+    .opt{padding:8px 11px; font-size:13.5px;}
+    .opts{gap:6px;}
+    .metrics{bottom:68px; max-width:none; left:8px; gap:5px;}
+    .metric{min-width:58px; padding:4px 8px;}
+    .metric .v{font-size:21px;}
+    .gradpill{bottom:70px; padding:5px 10px;}
+    .gradpill .g{font-size:28px;}
+    .explain{padding-top:8px; margin-top:9px;}
+    .cites{margin-bottom:9px;}
   }
 </style>
 </head>
