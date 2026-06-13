@@ -534,8 +534,7 @@ function answer(btn, text, q){
   if(correct && fast && q.terrain!=="sprint") rwd += " · speed bonus";
   $("reward").textContent = rwd;
   $("extext").textContent = q.explain;
-  $("citeNc").textContent = q.nc;
-  $("citeCa").textContent = q.ca;
+  renderCites(q);
   $("explain").classList.add("show");
 
   // advance marker visually
@@ -549,6 +548,25 @@ $("contBtn") && $("contBtn").addEventListener("click", ()=>{
   $("qcard").classList.remove("show");
   setTimeout(loadQuestion, 220);
 });
+
+/* Build the citation chips. NC/CA questions get two chips (North Carolina /
+   California); UBE questions supply their own `chips` array (Tested rule /
+   Authority). */
+function renderCites(q){
+  const box = $("cites"); box.innerHTML = "";
+  const chips = q.chips || [
+    { label: "North Carolina", text: q.nc, kind: "nc" },
+    { label: "California",     text: q.ca, kind: "ca" }
+  ];
+  chips.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "cite " + (c.kind || "ube");
+    const st = document.createElement("span"); st.className = "st"; st.textContent = c.label;
+    const tx = document.createElement("span"); tx.textContent = c.text || "";
+    d.appendChild(st); d.appendChild(tx);
+    box.appendChild(d);
+  });
+}
 
 function flashToast(msg, col){
   const t = $("toast"); t.textContent = msg; t.style.color = col;

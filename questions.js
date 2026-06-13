@@ -723,6 +723,197 @@ const STAGES = [
         nc: "N.C. RPC 8.3 (since 1997)", ca: "Cal. RPC 8.3 (eff. Aug. 1, 2023)"
       }
     ]
+  },
+
+  /* =================================================================
+     STAGE 5 — UBE GENERAL PRINCIPLES (the law the exam actually tests)
+     NOT North-Carolina-vs-California. These are the general / majority /
+     uniform / Restatement rules tested on the Uniform Bar Exam (MBE + MEE).
+     Each item verified against an authoritative source (Cornell LII for the
+     Federal Rules and U.S. Code, official UCC text, the controlling U.S.
+     Supreme Court case, or the Restatement). Citations use the `chips`
+     field (Tested rule + Authority) instead of NC/CA.
+     ================================================================= */
+  {
+    id: 5,
+    name: "The Uniform Bar",
+    sub: "Paris Finish · The Law the Exam Tests",
+    blurb: "The decisive stage drops the North-Carolina-versus-California quarrel entirely. The UBE " +
+           "doesn't reward state quirks — it tests the general, majority, and uniform rules: the MBE " +
+           "and MEE black-letter you answer on exam day. Diversity jurisdiction, the mailbox rule, the " +
+           "battle of the forms, hearsay, the Rule Against Perpetuities, Miranda, the tiers of scrutiny. " +
+           "This is the road that actually leads to the license.",
+    subject: "UBE General Principles (MBE / MEE)",
+    questions: [
+      {
+        terrain: "flat", diff: 1,
+        q: "P (a citizen of Ohio) sues D (a citizen of Michigan) in federal court for breach of contract, seeking exactly $75,000 plus interest and costs. There is no federal question. May the court hear it under diversity jurisdiction?",
+        options: [
+          "No — the amount in controversy must EXCEED $75,000 (exclusive of interest and costs), and exactly $75,000 falls short",
+          "Yes — the parties are diverse and the claim is worth at least $75,000",
+          "Yes — interest and costs are added in, which pushes the total over the threshold",
+          "No — contract claims can only be heard under federal-question jurisdiction"
+        ],
+        correct: "No — the amount in controversy must EXCEED $75,000 (exclusive of interest and costs), and exactly $75,000 falls short",
+        explain: "Diversity jurisdiction needs complete diversity AND an amount in controversy that exceeds $75,000, exclusive of interest and costs. Exactly $75,000 is not enough — the classic 'exceeds, not at least' trap.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Diversity jurisdiction — must exceed $75,000"},
+                {label:"Authority", kind:"ube", text:"28 U.S.C. § 1332; Strawbridge v. Curtiss"}]
+      },
+      {
+        terrain: "flat", diff: 1,
+        q: "What is the constitutional standard for a court to exercise personal jurisdiction over an out-of-state defendant?",
+        options: [
+          "The defendant must have minimum contacts with the forum such that the suit does not offend traditional notions of fair play and substantial justice",
+          "The defendant must be personally served while physically present in the forum",
+          "The defendant must be domiciled in, or incorporated under the laws of, the forum",
+          "The plaintiff's claim must have arisen entirely within the forum state"
+        ],
+        correct: "The defendant must have minimum contacts with the forum such that the suit does not offend traditional notions of fair play and substantial justice",
+        explain: "International Shoe replaced rigid physical-presence rules with the minimum-contacts / fair-play-and-substantial-justice standard — the most-tested personal-jurisdiction formulation on the UBE.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Personal jurisdiction — minimum contacts"},
+                {label:"Authority", kind:"ube", text:"International Shoe Co. v. Washington, 326 U.S. 310 (1945)"}]
+      },
+      {
+        terrain: "sprint", diff: 2,
+        q: "SPRINT! Offeror mails a revocable offer Monday. Offeree mails a proper acceptance Wednesday. Offeror mails a revocation Thursday (before the acceptance arrives). The acceptance arrives Friday; the revocation Saturday. Is there a contract?",
+        options: [
+          "Yes — acceptance is effective on dispatch (Wednesday), and a revocation is effective only on receipt",
+          "No — the revocation was dispatched before the acceptance was received by the offeror",
+          "No — neither communication had been received when the offeror mailed the revocation",
+          "Yes — but only if the offeror actually read the acceptance before mailing the revocation"
+        ],
+        correct: "Yes — acceptance is effective on dispatch (Wednesday), and a revocation is effective only on receipt",
+        explain: "Under the mailbox rule, an acceptance is effective on dispatch, but a revocation is effective only on receipt — so the Wednesday acceptance formed the contract before the revocation ever arrived.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Mailbox rule — acceptance on dispatch, revocation on receipt"},
+                {label:"Authority", kind:"ube", text:"Restatement (Second) of Contracts §§ 63, 42"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "Two merchants. The buyer's purchase order does not limit acceptance to its terms. The seller's definite acceptance adds an arbitration clause that would materially alter the deal, and the buyer never objects. Is the arbitration clause part of the contract?",
+        options: [
+          "No — between merchants, an additional term that materially alters the contract does not become part of it, even without objection",
+          "Yes — the buyer failed to object to the new term within a reasonable time",
+          "No — an acceptance stating any additional term is a counteroffer, so no contract formed at all",
+          "Yes — between merchants, all additional terms automatically become part of the contract"
+        ],
+        correct: "No — between merchants, an additional term that materially alters the contract does not become part of it, even without objection",
+        explain: "Under UCC § 2-207, a definite acceptance still forms a contract; but between merchants a materially-altering additional term drops out regardless of objection.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Battle of the forms — material alteration drops out"},
+                {label:"Authority", kind:"ube", text:"UCC § 2-207"}]
+      },
+      {
+        terrain: "sprint", diff: 2,
+        q: "SPRINT! A merchant, in a signed writing, offers to sell goods and states the offer 'will remain open for six months.' No consideration is paid. After four months, before the buyer accepts, the merchant tries to revoke. Was the offer still irrevocable?",
+        options: [
+          "No — a firm offer is irrevocable without consideration for no longer than three months, so irrevocability had already lapsed",
+          "Yes — the signed writing stated six months, so the merchant is bound for the full six months",
+          "No — a firm offer requires consideration to be irrevocable at all",
+          "Yes — firm offers stay irrevocable for a reasonable time, which is six months here"
+        ],
+        correct: "No — a firm offer is irrevocable without consideration for no longer than three months, so irrevocability had already lapsed",
+        explain: "UCC § 2-205 caps a no-consideration firm offer's irrevocability at three months, even when the writing states a longer period.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Firm offer — three-month cap"},
+                {label:"Authority", kind:"ube", text:"UCC § 2-205"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "A witness testifies that, before trial, a bystander told her 'the blue car ran the red light.' It is offered to prove the blue car ran the red light. Under the Federal Rules, the statement is:",
+        options: [
+          "Inadmissible hearsay unless an exception or exclusion applies — an out-of-court statement offered to prove the truth of the matter asserted",
+          "Admissible — the witness is testifying under oath and subject to cross-examination",
+          "Inadmissible — all out-of-court statements are barred regardless of the purpose",
+          "Admissible — the bystander personally perceived the event"
+        ],
+        correct: "Inadmissible hearsay unless an exception or exclusion applies — an out-of-court statement offered to prove the truth of the matter asserted",
+        explain: "Hearsay is an out-of-court statement offered for its truth (FRE 801(c)) and is inadmissible absent an exception or exclusion (FRE 802). The testifying witness is not the declarant.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Hearsay — out-of-court statement offered for its truth"},
+                {label:"Authority", kind:"ube", text:"FRE 801(c); FRE 802"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "Which is true of the 'present sense impression' and 'excited utterance' hearsay exceptions?",
+        options: [
+          "Neither requires the declarant to be unavailable — both apply regardless of the declarant's availability",
+          "Both require the declarant to be unavailable to testify",
+          "The excited utterance requires unavailability, but the present sense impression does not",
+          "The present sense impression requires unavailability, but the excited utterance does not"
+        ],
+        correct: "Neither requires the declarant to be unavailable — both apply regardless of the declarant's availability",
+        explain: "Both exceptions live in FRE 803, which applies 'regardless of whether the declarant is available as a witness.' Only the FRE 804 exceptions require unavailability.",
+        chips: [{label:"Tested rule", kind:"ube", text:"FRE 803 exceptions — availability is immaterial"},
+                {label:"Authority", kind:"ube", text:"FRE 803(1) & 803(2)"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "Defendant throws a rock at A, intending to hit A. The rock misses A and strikes B, injuring him. Is Defendant liable to B for battery?",
+        options: [
+          "Yes — the intent to cause harmful contact to A transfers to B, and a harmful contact with B resulted",
+          "No — Defendant had no intent to contact B specifically",
+          "No — Defendant did not act with the purpose of injuring anyone",
+          "Yes — but only if Defendant knew that B was nearby"
+        ],
+        correct: "Yes — the intent to cause harmful contact to A transfers to B, and a harmful contact with B resulted",
+        explain: "Transferred intent carries the intent from the intended victim (A) to the actual victim (B). Battery intent is satisfied by purpose or knowledge to a substantial certainty.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Battery — transferred intent"},
+                {label:"Authority", kind:"ube", text:"Restatement (Second) of Torts §§ 13, 16, 18"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "A blasting company uses explosives with the utmost care, yet a blast cracks a neighbor's foundation. The company's liability is best described as:",
+        options: [
+          "Strictly liable — blasting is an abnormally dangerous activity, so liability attaches even though it used the utmost care",
+          "Liable only if the neighbor proves the company failed to use reasonable care",
+          "Not liable — the company exercised the utmost care to prevent harm",
+          "Strictly liable for all harm of any kind that follows the blast, regardless of foreseeability"
+        ],
+        correct: "Strictly liable — blasting is an abnormally dangerous activity, so liability attaches even though it used the utmost care",
+        explain: "One who carries on an abnormally dangerous activity is strictly liable despite the utmost care — though liability is limited to the kind of harm that makes the activity dangerous.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Strict liability — abnormally dangerous activity"},
+                {label:"Authority", kind:"ube", text:"Restatement (Second) of Torts §§ 519–520"}]
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "Which is the correct common-law statement of the Rule Against Perpetuities?",
+        options: [
+          "No interest is valid unless it must vest, if at all, no later than 21 years after some life in being at the creation of the interest",
+          "No interest is valid unless it actually vests within 21 years after the creation of the interest",
+          "No interest is valid unless it vests within 90 years of its creation",
+          "No interest is valid unless it must vest within the lifetime of the grantor"
+        ],
+        correct: "No interest is valid unless it must vest, if at all, no later than 21 years after some life in being at the creation of the interest",
+        explain: "Gray's classic formulation requires certainty of vesting (or failing) within a life in being plus 21 years — not actual vesting, and not the 90-year USRAP statutory alternative.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Rule Against Perpetuities — Gray's formulation"},
+                {label:"Authority", kind:"ube", text:"Common-law RAP (J.C. Gray)"}]
+      },
+      {
+        terrain: "rolling", diff: 2,
+        q: "Police stop a driver for a routine traffic violation on the roadside, ask a few questions, and have not arrested him. Are Miranda warnings required before those questions?",
+        options: [
+          "No — Miranda applies only when the suspect is BOTH in custody and subject to interrogation, and an ordinary traffic stop is not custody",
+          "Yes — any police questioning triggers Miranda",
+          "Yes — the driver is detained and not free to leave the scene",
+          "No — Miranda warnings are required only after a formal arrest is documented"
+        ],
+        correct: "No — Miranda applies only when the suspect is BOTH in custody and subject to interrogation, and an ordinary traffic stop is not custody",
+        explain: "Miranda requires custody AND interrogation. A routine roadside stop is generally non-custodial, so brief questioning needs no warnings.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Miranda — needs custody + interrogation"},
+                {label:"Authority", kind:"ube", text:"Miranda v. Arizona, 384 U.S. 436 (1966)"}]
+      },
+      {
+        terrain: "hc", diff: 3,
+        q: "SUMMIT FINISH. A state law classifies people on the basis of GENDER. Under equal protection, what must the state show to sustain the law?",
+        options: [
+          "The classification must be substantially related to an important government interest (intermediate scrutiny)",
+          "The classification must be narrowly tailored to a compelling government interest",
+          "The classification must be rationally related to a legitimate government interest",
+          "The classification must be the least restrictive means of advancing any conceivable interest"
+        ],
+        correct: "The classification must be substantially related to an important government interest (intermediate scrutiny)",
+        explain: "Gender is a quasi-suspect classification triggering intermediate scrutiny. Strict scrutiny (narrowly tailored / compelling interest) applies to race and fundamental rights; rational basis is the default.",
+        chips: [{label:"Tested rule", kind:"ube", text:"Equal protection — gender = intermediate scrutiny"},
+                {label:"Authority", kind:"ube", text:"Craig v. Boren; United States v. Virginia"}]
+      }
+    ]
   }
 ];
 
