@@ -85,6 +85,19 @@ const STAGES = [
         nc: "N.C. Gen. Stat. § 50-8", ca: "Cal. Fam. Code § 2320"
       },
       {
+        terrain: "rolling", diff: 2,
+        q: "A couple, for financial reasons, keeps living in the same house but in separate bedrooms — the marriage is otherwise over and one spouse has clearly said so. Are they legally 'separated' for purposes of the divorce clock?",
+        options: [
+          "In California they can be separated while sharing a residence; North Carolina requires the spouses to live in physically separate residences",
+          "In both states they can be separated while still sharing one home",
+          "In neither state can spouses be separated while sharing a home",
+          "North Carolina allows same-home separation; California requires separate residences"
+        ],
+        correct: "In California they can be separated while sharing a residence; North Carolina requires the spouses to live in physically separate residences",
+        explain: "California's date-of-separation statute (enacted to abrogate Marriage of Davis) allows separation in the same residence on a showing of intent plus consistent conduct. Under North Carolina law the spouses must live in physically separate residences to be 'separate and apart.'",
+        nc: "N.C. Gen. Stat. § 50-6 (NC courts require separate residences)", ca: "Cal. Fam. Code § 70"
+      },
+      {
         terrain: "climb", diff: 3,
         q: "Your client wants to sue her husband's paramour for alienation of affection. Where can that tort claim proceed?",
         options: [
@@ -135,6 +148,19 @@ const STAGES = [
         correct: "California — Fam. Code § 1615's 7-day review rule and independent-counsel-or-written-waiver requirement",
         explain: "California deems a prenup involuntary unless the challenging party had at least 7 days to review it and was represented by counsel or expressly waived counsel in a separate writing. NC's UPAA (Ch. 52B) has no such per se rules.",
         nc: "N.C. Gen. Stat. § 52B-7", ca: "Cal. Fam. Code § 1615(c)"
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "A man marries a woman whose earlier divorce turns out to be invalid, so the new marriage is void — but he reasonably and in good faith believed it was valid. When it is annulled, how is the property they acquired together treated?",
+        options: [
+          "California treats him as a 'putative spouse' entitled to quasi-marital property by statute; North Carolina does not recognize a putative-spouse doctrine",
+          "Both states treat him as a putative spouse entitled to quasi-marital property",
+          "Neither state offers any protection to a good-faith party to a void marriage",
+          "North Carolina recognizes the putative-spouse doctrine by statute; California does not"
+        ],
+        correct: "California treats him as a 'putative spouse' entitled to quasi-marital property by statute; North Carolina does not recognize a putative-spouse doctrine",
+        explain: "California's putative-spouse statute confers quasi-marital property rights on a party who in good faith believed a void or voidable marriage was valid. North Carolina has no putative-spouse doctrine; a void marriage is simply a nullity.",
+        nc: "No putative-spouse doctrine (annulment under Ch. 50/51)", ca: "Cal. Fam. Code § 2251"
       },
       {
         terrain: "rolling", diff: 2,
@@ -241,6 +267,19 @@ const STAGES = [
         nc: "N.C. Gen. Stat. § 25-9-501", ca: "Cal. Com. Code § 9501"
       },
       {
+        terrain: "rolling", diff: 2,
+        q: "A two-member consulting LLC (taxed as a partnership, no corporate election) operates at no profit in its second year. How does its state entity-level franchise/annual tax differ between the two states?",
+        options: [
+          "California imposes an $800 annual tax on the LLC regardless of profit; North Carolina imposes no franchise tax on an LLC taxed as a partnership",
+          "Both states impose a flat $800 minimum tax regardless of profit",
+          "Neither state taxes an LLC that earns no profit",
+          "North Carolina imposes a flat $800 tax; California imposes none on LLCs"
+        ],
+        correct: "California imposes an $800 annual tax on the LLC regardless of profit; North Carolina imposes no franchise tax on an LLC taxed as a partnership",
+        explain: "California's § 17941 imposes an $800 annual tax on every LLC regardless of income. North Carolina's franchise tax falls only on corporations (net-worth based, $200 minimum), so an LLC taxed as a partnership owes no NC franchise tax.",
+        nc: "N.C. Gen. Stat. § 105-122 (corporations only; $200 min)", ca: "Cal. Rev. & Tax. Code § 17941 ($800 LLC tax)"
+      },
+      {
         terrain: "sprint", diff: 2,
         q: "SPRINT! Uniform Article 3 (NC and CA): which of these is NOT a requirement to be a holder in due course?",
         options: [
@@ -293,6 +332,19 @@ const STAGES = [
         nc: "No analog", ca: "Cal. Corp. Code § 2115"
       },
       {
+        terrain: "climb", diff: 3,
+        q: "A shareholder holding 6% of a corporation's voting shares demands to inspect and copy the record of shareholders (the shareholder list) but refuses to state any reason. Must the corporation comply?",
+        options: [
+          "California must comply — a 5%+ holder has an absolute right to the shareholder list with no proper purpose required; North Carolina may refuse unless the shareholder shows a good-faith proper purpose",
+          "Both states require the shareholder to show a proper purpose first",
+          "Neither state allows inspection without a court order",
+          "North Carolina grants an absolute right; California requires a proper purpose"
+        ],
+        correct: "California must comply — a 5%+ holder has an absolute right to the shareholder list with no proper purpose required; North Carolina may refuse unless the shareholder shows a good-faith proper purpose",
+        explain: "California gives a holder of 5%+ of voting shares (or 1%+ with a filed SEC Schedule 14A) an absolute right to inspect the shareholder list without proving purpose. North Carolina follows the Model Business Corporation Act, requiring a demand made in good faith and for a proper purpose.",
+        nc: "N.C. Gen. Stat. § 55-16-02", ca: "Cal. Corp. Code § 1600"
+      },
+      {
         terrain: "rolling", diff: 2,
         q: "Which state's LLC statute is a version of the national uniform act (RULLCA), and which is home-grown?",
         options: [
@@ -325,11 +377,12 @@ const STAGES = [
   {
     id: 3,
     name: "The Code-vs-Rules Ridge",
-    sub: "Procedure & Proof",
+    sub: "How You Litigate, Prove & Recover",
     blurb: "California litigates out of its own Code of Civil Procedure and its own Evidence Code. " +
-           "North Carolina runs on rules that track the federal model. Same race, two completely " +
-           "different course maps — and the descents are deceptively technical.",
-    subject: "Civil Procedure & Evidence",
+           "North Carolina runs on rules that track the federal model — but watch the substance: this " +
+           "is the state that still bars a plaintiff who is one percent at fault. Two completely " +
+           "different course maps, and the descents are deceptively technical.",
+    subject: "Civil Procedure, Evidence & Tort Liability",
     questions: [
       {
         terrain: "flat", diff: 1,
@@ -410,6 +463,19 @@ const STAGES = [
         nc: "No general anti-SLAPP statute", ca: "Cal. Code Civ. Proc. § 425.16"
       },
       {
+        terrain: "rolling", diff: 2,
+        q: "A jury awards $200,000 in compensatory damages against a (non-DWI) defendant and finds punitive damages warranted. What is the maximum punitive award?",
+        options: [
+          "NC caps punitives at the greater of three times compensatory ($600,000) or $250,000; California has no statutory cap (only constitutional due-process review)",
+          "Both states cap punitive damages at $250,000",
+          "North Carolina has no cap; California caps punitives at three times compensatory",
+          "Both states bar punitive damages unless a crime occurred"
+        ],
+        correct: "NC caps punitives at the greater of three times compensatory ($600,000) or $250,000; California has no statutory cap (only constitutional due-process review)",
+        explain: "North Carolina caps punitive damages at the greater of three times compensatory damages or $250,000 (with a DWI exception under § 1D-26). California imposes no statutory cap; punitive awards are limited only by due-process review.",
+        nc: "N.C. Gen. Stat. § 1D-25", ca: "Cal. Civ. Code § 3294 (no statutory cap)"
+      },
+      {
         terrain: "flat", diff: 1,
         q: "'Rule 403' balancing — excluding relevant evidence when its probative value is substantially outweighed by unfair prejudice — appears under that exact number in which state?",
         options: [
@@ -421,6 +487,19 @@ const STAGES = [
         correct: "North Carolina — Rule 403, tracking the Federal Rules of Evidence",
         explain: "NC's Rules of Evidence track the FRE numbering. California's Evidence Code is a standalone codification — the Rule 403 analog lives at Evidence Code § 352.",
         nc: "N.C. Gen. Stat. § 8C-1, Rule 403", ca: "Cal. Evid. Code § 352 (analog)"
+      },
+      {
+        terrain: "climb", diff: 3,
+        q: "A pedestrian is struck by a negligent driver. The jury finds the pedestrian 10% at fault, the driver 90% at fault, and damages of $100,000. What does the pedestrian recover?",
+        options: [
+          "NC: $0 — any plaintiff fault bars recovery under pure contributory negligence; CA: $90,000 — damages reduced by the plaintiff's 10% fault under pure comparative negligence",
+          "$90,000 in both states",
+          "NC: $90,000; CA: $0",
+          "$100,000 in both states"
+        ],
+        correct: "NC: $0 — any plaintiff fault bars recovery under pure contributory negligence; CA: $90,000 — damages reduced by the plaintiff's 10% fault under pure comparative negligence",
+        explain: "North Carolina is one of the few pure contributory-negligence jurisdictions: any plaintiff fault is a complete bar (subject to narrow exceptions like last clear chance). California adopted pure comparative negligence in Li v. Yellow Cab, merely reducing damages by the plaintiff's share of fault.",
+        nc: "Sorrells v. M.Y.B. Hospitality Ventures (pure contributory negligence)", ca: "Li v. Yellow Cab Co., 13 Cal.3d 804 (pure comparative)"
       },
       {
         terrain: "hc", diff: 3,
@@ -514,6 +593,19 @@ const STAGES = [
         nc: "N.C. Gen. Stat. § 31-3.4", ca: "Cal. Prob. Code § 6111"
       },
       {
+        terrain: "rolling", diff: 2,
+        q: "Which statement correctly describes the source of trust law in each state?",
+        options: [
+          "North Carolina adopted the Uniform Trust Code (Chapter 36C); California did not, governing trusts under its own Probate Code Trust Law (§ 15000 et seq.)",
+          "Both states adopted the Uniform Trust Code",
+          "North Carolina uses its own non-uniform code; California adopted the Uniform Trust Code",
+          "Neither state has a comprehensive trust statute; both rely solely on common law"
+        ],
+        correct: "North Carolina adopted the Uniform Trust Code (Chapter 36C); California did not, governing trusts under its own Probate Code Trust Law (§ 15000 et seq.)",
+        explain: "North Carolina enacted the Uniform Trust Code as Chapter 36C ('North Carolina Uniform Trust Code'). California declined the UTC and keeps its home-grown Trust Law in Probate Code Division 9.",
+        nc: "N.C. Gen. Stat. Ch. 36C (NC Uniform Trust Code)", ca: "Cal. Prob. Code § 15000 et seq. (non-UTC)"
+      },
+      {
         terrain: "climb", diff: 3,
         q: "A testator acknowledges her signature to Witness A on Monday and, separately, to Witness B on Tuesday; each signs the same day she sees them. Valid attested will?",
         options: [
@@ -551,6 +643,19 @@ const STAGES = [
         correct: "CA: the entire $1,000,000 (spouse keeps her own half plus the decedent's half, § 6401); NC: no community property — under § 29-14 the spouse takes the first $60,000 of personalty + half the balance + half of any realty",
         explain: "California's community-property classification controls intestacy: the spouse ends up with all of it. North Carolina has no community property and uses a dollar-threshold-plus-fraction formula.",
         nc: "N.C. Gen. Stat. § 29-14", ca: "Cal. Prob. Code § 6401"
+      },
+      {
+        terrain: "sprint", diff: 2,
+        q: "SPRINT! A testator wants a fill-in-the-blank will form set out verbatim in the state's own statutes. Which state offers such a 'statutory will'?",
+        options: [
+          "California — Probate Code § 6240",
+          "North Carolina — Chapter 31",
+          "Both states",
+          "Neither state"
+        ],
+        correct: "California — Probate Code § 6240",
+        explain: "California Probate Code § 6240 sets out an official fill-in-the-blank California Statutory Will form a testator can complete and execute. North Carolina has no equivalent statutory form — Chapter 31 lists only the types of valid wills.",
+        nc: "No statutory will form (Ch. 31 lists will types only)", ca: "Cal. Prob. Code § 6240"
       },
       {
         terrain: "sprint", diff: 2,
