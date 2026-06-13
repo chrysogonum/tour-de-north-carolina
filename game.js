@@ -55,11 +55,18 @@ function buildPreview(){
   STAGES.forEach((s,i)=>{
     const el = document.createElement("div");
     el.className = "spv";
+    el.setAttribute("role", "button");
+    el.tabIndex = 0;
+    el.setAttribute("aria-label", `Stage ${i+1}, ${s.name}, ${s.questions.length} questions. Click to start.`);
     el.innerHTML =
-      `<div class="n">Stage ${i+1}</div>
+      `<div class="n"><span>Stage ${i+1}</span><span class="qct">${s.questions.length} questions</span></div>
        <div class="t">${s.name}</div>
        <div class="s">${s.subject}</div>
-       <canvas class="prof" width="320" height="60"></canvas>`;
+       <canvas class="prof" width="320" height="60"></canvas>
+       <div class="go">Roll out ▸</div>`;
+    const launch = () => { resetTotals(); startStage(i); };
+    el.addEventListener("click", launch);
+    el.addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){ e.preventDefault(); launch(); } });
     wrap.appendChild(el);
     drawMiniProfile(el.querySelector("canvas"), s);
   });
@@ -669,13 +676,11 @@ $("replayBtn").addEventListener("click", ()=>{
 /* ===================================================================
    BOOT
    =================================================================== */
+function resetTotals(){ G.yellow = 0; G.green = 0; G.polka = 0; G.stageRec = []; }
+
 function boot(){
   buildPreview();
   resize();
-  $("signonBtn").addEventListener("click", ()=>{
-    G.yellow=G.green=G.polka=0; G.stageRec=[];
-    startStage(0);
-  });
   requestAnimationFrame(loop);
 }
 if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot);

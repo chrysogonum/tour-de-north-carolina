@@ -46,11 +46,22 @@
     margin:24px auto 0; max-width:720px; text-align:left; line-height:1.55; color:#dbe6fb;}
   .blurbcard b{color:#fff;}
   .stages-preview{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin:22px 0;}
-  .spv{background:#101c33; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:left;}
-  .spv .n{font-family:'Barlow Condensed'; font-size:13px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase;}
-  .spv .t{font-family:'Barlow Condensed'; font-size:24px; font-weight:700; color:#fff; line-height:1; margin:2px 0 4px;}
+  .pickhdr{font-family:'Barlow Condensed'; font-size:22px; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; color:#cfe0ff; margin:26px 0 2px;}
+  .spv{background:#101c33; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:left;
+    cursor:pointer; transition:transform .12s ease, border-color .15s, box-shadow .15s; position:relative;}
+  .spv:hover{transform:translateY(-3px); border-color:var(--yellow); box-shadow:0 12px 28px #0007;}
+  .spv:focus-visible{outline:2px solid var(--yellow); outline-offset:2px;}
+  .spv .n{font-family:'Barlow Condensed'; font-size:13px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase;
+    display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .spv .qct{background:#22324f; color:#ffd86b; border-radius:999px; padding:2px 9px; font-size:12px;
+    font-weight:700; letter-spacing:.5px; white-space:nowrap;}
+  .spv .t{font-family:'Barlow Condensed'; font-size:24px; font-weight:700; color:#fff; line-height:1; margin:4px 0 4px;}
   .spv .s{font-size:12.5px; color:#bcd0f2;}
   .spv .prof{height:30px; margin-top:8px;}
+  .spv .go{margin-top:8px; font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; font-size:13px; color:var(--yellow); opacity:.85;}
+  .spv:hover .go{opacity:1;}
   .cta{margin-top:14px; display:inline-flex; align-items:center; gap:12px;
     background:linear-gradient(180deg,#ff7a00,#e85d00); color:#fff; font-weight:800;
     font-family:'Barlow Condensed'; font-size:30px; letter-spacing:2px; text-transform:uppercase;
@@ -254,9 +265,8 @@
         differences live and the gradient bites. Three jerseys. Fifty questions. One Tar Heel license.
       </div>
 
+      <h3 class="pickhdr">Choose your stage — click a card to roll out ▸</h3>
       <div class="stages-preview" id="stagesPreview"></div>
-
-      <button class="cta" id="signonBtn">Sign On ▸</button>
 
       <div class="legal-note">
         A study aid and a gift — not legal advice, and no substitute for your bar prep. Every item was checked
