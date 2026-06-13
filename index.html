@@ -46,6 +46,11 @@
     margin:24px auto 0; max-width:720px; text-align:left; line-height:1.55; color:#dbe6fb;}
   .blurbcard b{color:#fff;}
   .stages-preview{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin:22px 0;}
+  /* big screens: break out of the 880px text column and put all five cards in one row */
+  @media (min-width:1024px){
+    .stages-preview{grid-template-columns:repeat(5,1fr); width:min(1280px,94vw);
+      position:relative; left:50%; transform:translateX(-50%);}
+  }
   .pickhdr{font-family:'Barlow Condensed'; font-size:22px; font-weight:700; letter-spacing:1px;
     text-transform:uppercase; color:#cfe0ff; margin:26px 0 2px;}
   .spv{background:#101c33; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:left;
